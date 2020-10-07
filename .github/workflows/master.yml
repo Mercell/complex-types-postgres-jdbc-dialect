@@ -13,7 +13,7 @@ jobs:
       - name: Declare outputs
         id: declare
         run: |
-          export do_deploy="${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && !contains(github.event.head_commit.message, 'ci skip') }}"
+          export do_deploy="${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'ci skip') }}"
           echo "::set-output name=version::1.$(date +%Y%m%d%H%M%S).$(git describe --always --dirty --exclude '*')"
           echo "::set-output name=do_deploy::${do_deploy}"
           echo "::set-output name=task_name::$(case ${do_deploy} in true) echo publish;; *) echo build;; esac)"
