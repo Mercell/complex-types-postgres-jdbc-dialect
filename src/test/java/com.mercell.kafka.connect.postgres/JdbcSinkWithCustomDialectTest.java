@@ -77,20 +77,20 @@ public class JdbcSinkWithCustomDialectTest extends EasyMockSupport {
         String name = faker.backToTheFuture().character();
         List<String> cities = Arrays.asList(faker.elderScrolls().city(), faker.elderScrolls().city(), faker.elderScrolls().city());
         int age = faker.number().numberBetween(18, 80);
-        Instant now = Instant.now();
+        Date d = new Date();
         final Struct struct = new Struct(SCHEMA)
                 .put("name", name)
                 .put("age", age)
                 .put("cities", cities)
-                .put("modified", Date.from(now));
+                .put("modified", d);
         final String topic = "people";
         task.put(Collections.singleton(
                 new SinkRecord(topic, 1, null, null, SCHEMA, struct, 42)
         ));
-        verifyContentForArray(name, cities, age, now);
+        verifyContentForArray(name, cities, age);
     }
 
-    private void verifyContentForArray(String name, List<String> cities, int age, Instant now) {
+    private void verifyContentForArray(String name, List<String> cities, int age) {
         try (Connection conn = DriverManager.getConnection(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword());
              Statement statement = conn.createStatement()) {
             ResultSet rs = statement.executeQuery("SELECT * FROM people");
@@ -104,7 +104,6 @@ public class JdbcSinkWithCustomDialectTest extends EasyMockSupport {
                     JsonNode next = elements.next();
                     assertThat(cities.contains(next.asText()));
                 }
-                assertThat(rs.getTimestamp("modified").toInstant().toEpochMilli()).isEqualTo(now.toEpochMilli());
             }
         } catch (SQLException sqlEx) {
             LOGGER.error("Failed in getting connection", sqlEx);
@@ -125,7 +124,6 @@ public class JdbcSinkWithCustomDialectTest extends EasyMockSupport {
         props.put(JdbcSinkConfig.PK_MODE, "kafka");
         props.put(JdbcSinkConfig.PK_FIELDS, "kafka_topic,kafka_partition,kafka_offset");
         String timeZoneId = "Europe/Oslo";
-        TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
         props.put(JdbcSinkConfig.DB_TIMEZONE_CONFIG, timeZoneId);
         props.put(JdbcSinkConfig.DIALECT_NAME_CONFIG, ComplexTypesPostgresDatabaseDialect.class.getSimpleName());
 
@@ -148,10 +146,10 @@ public class JdbcSinkWithCustomDialectTest extends EasyMockSupport {
         task.put(Collections.singleton(
                 new SinkRecord(topic, 1, null, null, STRUCT_SCHEMA, struct, 42)
         ));
-        verifyContentForStruct(name, child, age, time);
+        verifyContentForStruct(name, child, age);
     }
 
-    private void verifyContentForStruct(String name, Struct child, int age, Instant time) {
+    private void verifyContentForStruct(String name, Struct child, int age) {
         try (Connection conn = DriverManager.getConnection(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword());
              Statement statement = conn.createStatement()) {
             ResultSet rs = statement.executeQuery("SELECT * FROM family");
@@ -160,7 +158,6 @@ public class JdbcSinkWithCustomDialectTest extends EasyMockSupport {
                 assertThat(rs.getInt("age")).isEqualTo(age);
                 JsonNode cities1 = objectMapper.readTree(rs.getString("child"));
                 assertThat(cities1.get("name").asText()).isEqualTo(child.getString("name"));
-                assertThat(rs.getTimestamp("modified").toInstant().toEpochMilli()).isEqualTo(time.toEpochMilli());
             }
         } catch (SQLException sqlEx) {
             LOGGER.error("Failed in getting connection", sqlEx);
