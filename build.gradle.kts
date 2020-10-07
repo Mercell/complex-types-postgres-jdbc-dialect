@@ -17,10 +17,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 dependencies {
-    implementation("org.apache.kafka:kafka-clients:2.5.1")
-    implementation("org.apache.kafka:connect-api:2.5.1")
+    implementation("org.apache.kafka:kafka-clients:2.6.0")
+    implementation("org.apache.kafka:connect-api:2.6.0")
     implementation("org.postgresql:postgresql:42.2.9")
-    implementation("io.confluent:kafka-connect-jdbc:5.5.1")
+    implementation("io.confluent:kafka-connect-jdbc:5.5.2")
     implementation("com.fasterxml.jackson.core:jackson-core:2.11.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.11.1")
     implementation("com.fasterxml.jackson.module:jackson-module-paranamer:2.11.1")
