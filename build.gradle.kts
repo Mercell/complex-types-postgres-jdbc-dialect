@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     id("maven-publish")
+    id("com.github.johnrengelman.shadow").version("6.1.0")
 }
 
 repositories {
@@ -19,13 +20,9 @@ java {
 dependencies {
     implementation("org.apache.kafka:kafka-clients:2.6.0")
     implementation("org.apache.kafka:connect-api:2.6.0")
-    implementation("org.postgresql:postgresql:42.2.9")
+    implementation("org.postgresql:postgresql:42.2.15")
     implementation("io.confluent:kafka-connect-jdbc:5.5.2")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.11.1")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.11.1")
-    implementation("com.fasterxml.jackson.module:jackson-module-paranamer:2.11.1")
-    implementation("com.fasterxml.jackson.module:jackson-module-scala_2.11:2.11.1")
-    implementation("com.datamountaineer:kafka-connect-common:1.1.9")
+    api("com.datamountaineer:kafka-connect-common:2.0.4")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
@@ -33,6 +30,8 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter:1.14.3")
     testImplementation("org.testcontainers:postgresql:1.14.3")
     testImplementation("com.github.javafaker:javafaker:1.0.2")
+    testRuntimeOnly("org.apache.calcite:calcite-avatica:1.6.0")
+    testRuntimeOnly("org.slf4j:slf4j-simple:1.7.30")
     testImplementation("org.easymock:easymock:4.2")
 }
 

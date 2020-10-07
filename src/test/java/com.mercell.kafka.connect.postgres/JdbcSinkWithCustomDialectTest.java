@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class JdbcSinkWithCustomDialectTest extends EasyMockSupport {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcSinkWithCustomDialectTest.class);
     @Container
-    private static final PostgreSQLContainer postgres = new PostgreSQLContainer()
+    private static final PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:12.4")
             .withDatabaseName("metabase")
             .withUsername("foo")
             .withPassword("secret");

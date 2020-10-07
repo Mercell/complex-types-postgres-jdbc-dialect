@@ -7,4 +7,4 @@
  * in the user manual at https://docs.gradle.org/6.6.1/userguide/multi_project_builds.html
  */
 
-rootProject.name = "complex-types-postgres-sink"
+rootProject.name = "postgres-complex-types-jdbc-dialect"
