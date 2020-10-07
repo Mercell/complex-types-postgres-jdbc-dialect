@@ -1,4 +1,4 @@
-# complex-types-postgres-sink
+# postgres-complex-types-jdbc-dialect
 
 This adds support for `ARRAY` and `STRUCT` types in Postgres Sinks. 
 They are converted to json and added as `jsonb` fields.
