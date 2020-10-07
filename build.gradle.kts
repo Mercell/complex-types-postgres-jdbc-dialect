@@ -73,7 +73,7 @@ publishing {
             pom {
                 name.set("complex-types-postgres-jdbc-dialect")
                 description.set("Postgres JDBC dialect implementation with support for Complex types (STRUCT) in Kafka Connect")
-                url.set("https://github.com/mercell/complex-types-postgres-jdbc-dialect")
+                url.set("https://github.com/Mercell/complex-types-postgres-jdbc-dialect")
 
                 licenses {
                     license {
@@ -83,9 +83,9 @@ publishing {
                 }
 
                 scm {
-                    connection.set("scm:git:https://github.com/mercell/complex-types-postgres-jdbc-dialect.git")
-                    developerConnection.set("scm:git:git@github.com:mercell/complex-types-postgres-jdbc-dialect.git")
-                    url.set("https://github.com/mercell/complex-types-postgres-jdbc-dialect")
+                    connection.set("scm:git:https://github.com/Mercell/complex-types-postgres-jdbc-dialect.git")
+                    developerConnection.set("scm:git:git@github.com:Mercell/complex-types-postgres-jdbc-dialect.git")
+                    url.set("https://github.com/Mercell/complex-types-postgres-jdbc-dialect")
                 }
             }
             from(components["java"])
