@@ -10,12 +10,12 @@ repositories {
         url = uri("http://packages.confluent.io/maven/")
     }
 }
+group = "com.mercell.kafka.connect"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
-
 dependencies {
     implementation("org.apache.kafka:kafka-clients:2.5.1")
     implementation("org.apache.kafka:connect-api:2.5.1")
