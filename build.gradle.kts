@@ -61,7 +61,7 @@ val githubPassword: String? by project
 publishing {
     repositories {
         maven {
-            url = uri("https://maven.pkg.github.com/navikt/complex-types-oracle-jdbc-dialect")
+            url = uri("https://maven.pkg.github.com/mercell/complex-types-postgres-jdbc-dialect")
             credentials {
                 username = githubUser
                 password = githubPassword
