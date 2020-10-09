@@ -22,8 +22,8 @@ dependencies {
     implementation("org.apache.kafka:connect-api:2.6.0")
     implementation("org.postgresql:postgresql:42.2.15")
     implementation("io.confluent:kafka-connect-jdbc:5.5.2")
-    api("com.datamountaineer:kafka-connect-common:2.0.4")
-
+    api("com.fasterxml.jackson.core:jackson-core:2.11.1")
+    api("com.fasterxml.jackson.core:jackson-databind:2.11.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
     testImplementation("org.assertj:assertj-core:3.17.1")

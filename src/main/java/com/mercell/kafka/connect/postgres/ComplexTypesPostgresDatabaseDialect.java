@@ -1,6 +1,5 @@
 package com.mercell.kafka.connect.postgres;
 
-import com.datamountaineer.streamreactor.connect.json.SimpleJsonConverter;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.confluent.connect.jdbc.dialect.DatabaseDialect;
 import io.confluent.connect.jdbc.dialect.DatabaseDialectProvider;
