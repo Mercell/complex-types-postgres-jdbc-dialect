@@ -30,7 +30,6 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter:1.14.3")
     testImplementation("org.testcontainers:postgresql:1.14.3")
     testImplementation("com.github.javafaker:javafaker:1.0.2")
-    testRuntimeOnly("org.apache.calcite:calcite-avatica:1.6.0")
     testRuntimeOnly("org.slf4j:slf4j-simple:1.7.30")
     testImplementation("org.easymock:easymock:4.2")
 }
