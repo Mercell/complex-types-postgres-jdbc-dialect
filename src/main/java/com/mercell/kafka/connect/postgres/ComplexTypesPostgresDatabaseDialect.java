@@ -52,24 +52,6 @@ public class ComplexTypesPostgresDatabaseDialect extends PostgreSqlDatabaseDiale
             }
         }
         switch (field.schemaType()) {
-            case INT8:
-                return "SMALLINT";
-            case INT16:
-                return "SMALLINT";
-            case INT32:
-                return "INT";
-            case INT64:
-                return "BIGINT";
-            case FLOAT32:
-                return "REAL";
-            case FLOAT64:
-                return "DOUBLE PRECISION";
-            case BOOLEAN:
-                return "BOOLEAN";
-            case STRING:
-                return "TEXT";
-            case BYTES:
-                return "BYTEA";
             case STRUCT:
             case ARRAY:
                 return "JSONB";
@@ -81,41 +63,6 @@ public class ComplexTypesPostgresDatabaseDialect extends PostgreSqlDatabaseDiale
     @Override
     protected boolean maybeBindPrimitive(PreparedStatement statement, int index, Schema schema, Object value) throws SQLException {
         switch (schema.type()) {
-            case INT8:
-                statement.setByte(index, (Byte) value);
-                break;
-            case INT16:
-                statement.setShort(index, (Short) value);
-                break;
-            case INT32:
-                statement.setInt(index, (Integer) value);
-                break;
-            case INT64:
-                statement.setLong(index, (Long) value);
-                break;
-            case FLOAT32:
-                statement.setFloat(index, (Float) value);
-                break;
-            case FLOAT64:
-                statement.setDouble(index, (Double) value);
-                break;
-            case BOOLEAN:
-                statement.setBoolean(index, (Boolean) value);
-                break;
-            case STRING:
-                statement.setString(index, (String) value);
-                break;
-            case BYTES:
-                final byte[] bytes;
-                if (value instanceof ByteBuffer) {
-                    final ByteBuffer buffer = ((ByteBuffer) value).slice();
-                    bytes = new byte[buffer.remaining()];
-                    buffer.get(bytes);
-                } else {
-                    bytes = (byte[]) value;
-                }
-                statement.setBytes(index, bytes);
-                break;
             case STRUCT:
             case ARRAY:
                 SimpleJsonConverter simpleJson = new SimpleJsonConverter(); // SimpleJsonConverter from datamountaineer
@@ -125,9 +72,8 @@ public class ComplexTypesPostgresDatabaseDialect extends PostgreSqlDatabaseDiale
                 jsonObject.setValue(node.toString());
                 statement.setObject(index, jsonObject);
                 break;
-
             default:
-                return false;
+                return super.maybeBindPrimitive(statement, index, schema, value);
         }
         return true;
     }
